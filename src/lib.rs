@@ -6,7 +6,7 @@ extern crate tungsten;
 mod frontend;
 mod runtime;
 
-pub use frontend::{CloseRequestEvent, View2D, Frontend2D, FrameRenderInfo, RenderBatchInfo, KeyboardInputEvent, RenderTarget, Rectangle, GameCameraInfo, LayerInfo, TextureId};
+pub use frontend::{CloseRequestEvent, View2D, Frontend2D, FrameRenderInfo, RenderBatchInfo, KeyboardInputEvent, RenderTarget, Rectangle, GameCameraInfo, LayerInfo, TextureId, MouseMoveEvent, MouseButtonEvent};
 
 // Re-export as utility
 pub use glium::glutin::VirtualKeyCode as Key;
