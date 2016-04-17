@@ -10,4 +10,5 @@ pub use frontend::{CloseRequestEvent, View2D, Frontend2D, FrameRenderInfo, Rende
 
 // Re-export as utility
 pub use glium::glutin::VirtualKeyCode as Key;
-pub use glium::glutin::ElementState as KeyState;
+pub use glium::glutin::ElementState as ElementState;
+pub use glium::glutin::MouseButton as MouseButton;

@@ -3,13 +3,22 @@ use std::sync::mpsc::{self, Sender, Receiver};
 use glium::glutin::Event;
 use tungsten::{Frontend, EventDispatcher};
 use runtime::FrontendRuntime;
-use {Key, KeyState};
+use {Key, ElementState, MouseButton};
 
 pub struct CloseRequestEvent;
 
 pub struct KeyboardInputEvent {
     pub key: Key,
-    pub state: KeyState,
+    pub state: ElementState,
+}
+
+pub struct MouseMoveEvent {
+    pub position: [i32; 2]
+}
+
+pub struct MouseButtonEvent {
+    pub button: MouseButton,
+    pub state: ElementState,
 }
 
 pub trait View2D<M> {
@@ -81,19 +90,24 @@ impl<M> Frontend2D<M> {
 impl<M: 'static> Frontend<M> for Frontend2D<M> {
     fn process_events(&mut self, dispatcher: &mut EventDispatcher<M>, model: &mut M) {
         // Process all received events
-        loop {
-            if let Ok(event) = self.event_recv.try_recv() {
-                match event {
-                    Event::Closed => dispatcher.dispatch(model, CloseRequestEvent),
-                    Event::KeyboardInput(state, _, virtual_key) =>
-                        dispatcher.dispatch(model, KeyboardInputEvent {
-                            key: virtual_key.unwrap(),
-                            state: state
-                        }),
-                    _ => ()
-                }
-            } else {
-                break;
+        while let Ok(event) = self.event_recv.try_recv() {
+            match event {
+                Event::Closed => dispatcher.dispatch(model, CloseRequestEvent),
+                Event::KeyboardInput(state, _, virtual_key) =>
+                    dispatcher.dispatch(model, KeyboardInputEvent {
+                        key: virtual_key.unwrap(),
+                        state: state
+                    }),
+                Event::MouseMoved(x, y) =>
+                    dispatcher.dispatch(model, MouseMoveEvent {
+                        position: [x, y]
+                    }),
+                Event::MouseInput(state, button) =>
+                    dispatcher.dispatch(model, MouseButtonEvent {
+                        button: button,
+                        state: state
+                    }),
+                _ => ()
             }
         }
     }
