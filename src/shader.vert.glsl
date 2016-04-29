@@ -1,4 +1,5 @@
-#version 140
+#version 150
+#extension GL_ARB_gpu_shader5 : require
 
 uniform mat3 m_matrix;
 
