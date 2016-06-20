@@ -195,7 +195,7 @@ impl FrontendRuntime {
     ) -> Self {
         let display = WindowBuilder::new()
             .with_dimensions(1280, 720)
-            .with_title("Tungsten".into())
+            .with_title("Tungsten")
             .build_glium().unwrap();
 
         let program = Program::from_source(

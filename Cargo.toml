@@ -9,7 +9,7 @@ license = "MIT/Apache-2.0"
 
 [dependencies]
 cgmath = "0.7.0"
-#glium = "0.?.?" waiting on arrays in uniforms to be supported
+#glium = "0.?.0" doesn't have array uniform support yet
 image = "0.8.0"
 tungsten = "0.1.0"
 
